@@ -65,4 +65,5 @@ macos/Runner.xcodeproj/xcuserdata/
 # Local env / secrets
 .env
 .env.*
-!.env.example
+!.env.exampleandroid/build/
+build/
