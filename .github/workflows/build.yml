@@ -27,12 +27,12 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --debug
         env:
-          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: dorkcoin-wallet-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: dorkcoin-wallet
+          path: build/app/outputs/flutter-apk/app-debug.apk
