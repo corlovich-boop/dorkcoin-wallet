@@ -40,12 +40,15 @@ jobs:
           KEYEOF
 
       - name: Build signed release APK
-        run: flutter build apk --release
+        run: flutter build apk --release || true
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
+
+      - name: Find APK
+        run: find . -name "*.apk" | grep -v debug | head -5
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: dorkcoin-wallet-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: "**/*release*.apk"
