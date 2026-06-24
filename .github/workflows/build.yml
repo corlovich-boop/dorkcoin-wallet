@@ -26,16 +26,21 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk --debug || true
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/dorkcoin-wallet.jks
+
+      - name: Build signed release APK
+        run: flutter build apk --release
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
-
-      - name: Find APK
-        run: find . -name "*.apk" 2>/dev/null
+          KEY_STORE_PATH: dorkcoin-wallet.jks
+          KEY_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: dorkcoin-wallet
-          path: "**/*.apk"
+          name: dorkcoin-wallet-release
+          path: build/app/outputs/flutter-apk/app-release.apk
