@@ -3,7 +3,7 @@
 // =========================
 class AppConfig {
   // Explorer API base URL (for read-only operations)
-  static const String apiBaseUrl = 'https://dorkexplorer.com';
+  static const String apiBaseUrl = 'https://explorer.dorkcoingames.com';
   
   // ElectrumX Server Configuration
   static const String electrumHost = 'elex.dorkcoingames.com';
